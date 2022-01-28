@@ -1,0 +1,75 @@
+//
+//  TencentVideoTextureRender.m
+//  tencent_trtc_cloud
+//
+//  Created by gavinwjwang on 2021/3/30.
+//
+
+#import "TencentVideoTextureRender.h"
+#import "libkern/OSAtomic.h"
+#import <AVFoundation/AVFoundation.h>
+#import <Accelerate/Accelerate.h>
+
+@implementation TencentVideoTextureRender
+{
+    bool _isLocal;
+    CVPixelBufferRef _localBuffer;
+    CVPixelBufferRef _target;
+    CVPixelBufferRef _latestPixelBuffer;
+    FrameUpdateCallback _callback;
+}
+
+- (instancetype)initWithFrameCallback:(FrameUpdateCallback)calback isLocal:(bool)isLocal{
+    if(self = [super init]) {
+        _callback = calback;
+        _isLocal = isLocal;
+    }
+    return self;
+}
+- (void)dealloc {
+  if (_latestPixelBuffer) {
+    CFRelease(_latestPixelBuffer);
+  }
+}
+- (CVPixelBufferRef)copyPixelBuffer {
+    if(_isLocal){
+        if(_localBuffer != NULL)
+            return  _localBuffer;
+        return  NULL;
+    }else{
+        CVPixelBufferRef pixelBuffer = _latestPixelBuffer;
+        while (!OSAtomicCompareAndSwapPtrBarrier(pixelBuffer, nil, (void **)&_latestPixelBuffer)) {
+            pixelBuffer = _latestPixelBuffer;
+        }
+        return pixelBuffer;
+    }
+}
+
+- (void)onRenderVideoFrame:(TRTCVideoFrame *)frame userId:(NSString *)userId streamType:(TRTCVideoStreamType)streamType {
+    if (frame.pixelBuffer != NULL) {
+        CVPixelBufferRef newBuffer = frame.pixelBuffer;
+        CFRetain(newBuffer);
+        _callback();
+        CVPixelBufferRef old = _latestPixelBuffer;
+        while (!OSAtomicCompareAndSwapPtrBarrier(old, newBuffer, (void **)&_latestPixelBuffer)) {
+          old = _latestPixelBuffer;
+        }
+        if (old != nil) {
+          CFRelease(old);
+        }
+        CFRelease(newBuffer);
+    }
+}
+
+- (uint32_t)onProcessVideoFrame:(TRTCVideoFrame *)srcFrame
+                       dstFrame:(TRTCVideoFrame *)dstFrame {
+    dstFrame.pixelBuffer = srcFrame.pixelBuffer;
+    if (srcFrame.pixelBuffer != NULL) {
+        CVPixelBufferRef buffer = srcFrame.pixelBuffer;
+        _localBuffer = CVBufferRetain(buffer);
+        _callback();
+        
+    }
+    return 0;
+}
+@end

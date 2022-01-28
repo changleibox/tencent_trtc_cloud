@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the TRTCCloudListener enum from the trtc_cloud_listener library, for the Dart programming language.">
+  <title>TRTCCloudListener enum - trtc_cloud_listener library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">tencent_trtc_cloud_international</a></li>
+    <li><a href="../trtc_cloud_listener/trtc_cloud_listener-library.html">trtc_cloud_listener</a></li>
+    <li class="self-crumb">TRTCCloudListener enum</li>
+  </ol>
+  <div class="self-name">TRTCCloudListener</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-enum">TRTCCloudListener</span> enum 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Listener type enumeration</p>
+</section>
+
+
+    <section>
+      <dl class="dl-horizontal">
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="constants">
+      <h2>Constants</h2>
+
+      <dl class="properties">
+        <dt id="onCameraDidReady" class="constant">
+  <span class="name ">onCameraDidReady</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Camera is ready</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(23)</code></span>
+  </div>
+</dd>
+
+        <dt id="onConnectionLost" class="constant">
+  <span class="name ">onConnectionLost</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>The connection between SDK and server is closed</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(19)</code></span>
+  </div>
+</dd>
+
+        <dt id="onConnectionRecovery" class="constant">
+  <span class="name ">onConnectionRecovery</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>The connection between SDK and server has been restored</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(21)</code></span>
+  </div>
+</dd>
+
+        <dt id="onConnectOtherRoom" class="constant">
+  <span class="name ">onConnectOtherRoom</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for the result of requesting cross-room call (anchor competition)</p>
+<p>Calling the <code>connectOtherRoom()</code> API in <code>TRTCCloud</code> will establish a video call between two anchors in two different rooms, i.e., the "anchor competition" feature. The caller will receive the <code>onConnectOtherRoom()</code> callback to see whether the cross-room call is successful; and if so, all users in both rooms will receive the <code>onUserVideoAvailable()</code> callback for anchor competition.</p>
+<p>param:</p>
+<p>userId <code>userId</code> of the target anchor to compete with.</p>
+<p>errCode   Error code. <code>ERR_NULL</code> indicates a successful switch. For more information, please see <a href="https://cloud.tencent.com/document/product/647/32257">Error Codes</a>.</p>
+<p>errMsg   Error message</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(7)</code></span>
+  </div>
+</dd>
+
+        <dt id="onDeviceChange" class="constant">
+  <span class="name ">onDeviceChange</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for local device connection and disconnection</p>
+<p>Note: this callback only supports Windows and macOS platforms</p>
+<p>Parameters</p>
+<p>deviceId  Device ID</p>
+<p>type   Device type</p>
+<p>state   Event type</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(42)</code></span>
+  </div>
+</dd>
+
+        <dt id="onDisConnectOtherRoom" class="constant">
+  <span class="name ">onDisConnectOtherRoom</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for the result of ending cross-room call (anchor competition)</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(8)</code></span>
+  </div>
+</dd>
+
+        <dt id="onEnterRoom" class="constant">
+  <span class="name ">onEnterRoom</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for room entry</p>
+<p>After the <code>enterRoom()</code> API in <code>TRTCCloud</code> is called to enter a room, the <code>onEnterRoom(result)</code> callback will be received from the SDK.</p>
+<p>If room entry succeeded, <code>result</code> will be a positive number (<code>result</code> &gt; 0), indicating the time in milliseconds (ms) used for entering the room.</p>
+<p>If room entry failed, <code>result</code> will be a negative number (<code>result</code> &lt; 0), indicating the error code for room entry failure.</p>
+<p>param:</p>
+<p>If <code>result</code> is greater than 0, it will be the time used for room entry in ms; if <code>result</code> is smaller than 0, it will be room entry error code.</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(2)</code></span>
+  </div>
+</dd>
+
+        <dt id="onError" class="constant">
+  <span class="name ">onError</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Error callback, which indicates that the SDK encountered an irrecoverable error and must be listened on. Corresponding UI reminders should be displayed based on the actual conditions</p>
+<p>param:</p>
+<p>errCode Error code</p>
+<p>errMsg Error message</p>
+<p>extraInfo Extended field. Certain error codes may carry extra information for troubleshooting</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(0)</code></span>
+  </div>
+</dd>
+
+        <dt id="onExitRoom" class="constant">
+  <span class="name ">onExitRoom</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for room exit</p>
+<p>When the <code>exitRoom()</code> API in <code>TRTCCloud</code> is called, the logic related to room exit will be executed, such as releasing resources of audio/video devices and codecs. After resources are released, the SDK will use the <code>onExitRoom()</code> callback to notify you.</p>
+<p>If you need to call <code>enterRoom()</code> again or switch to another audio/video SDK, please wait until you receive the <code>onExitRoom()</code> callback; otherwise, exceptions such as occupied audio device may occur.</p>
+<p>param:</p>
+<p>reason Reason for exiting the room. 0: the user actively called <code>exitRoom</code> to exit the room; 1: the user was kicked out of the room by the server; 2: the room was dismissed.</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(3)</code></span>
+  </div>
+</dd>
+
+        <dt id="onFirstAudioFrame" class="constant">
+  <span class="name ">onFirstAudioFrame</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Playback of the first audio frame of a remote user starts (local audio is not supported for notification currently)</p>
+<p>param:</p>
+<p>userId Remote user ID</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(14)</code></span>
+  </div>
+</dd>
+
+        <dt id="onFirstVideoFrame" class="constant">
+  <span class="name ">onFirstVideoFrame</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Rendering of the first frame of a local or remote user starts</p>
+<p>If <code>userId</code> is <code>null</code>, it indicates that the captured local camera image starts to be rendered, which needs to be triggered by calling <code>startLocalPreview</code> first. If <code>userId</code> is not <code>null</code>, it indicates that the first video frame of the remote user starts to be rendered, which needs to be triggered by calling <code>startRemoteView</code> first.</p>
+<p>This callback will be triggered only after <code>startLocalPreview()</code>, <code>startRemoteView()</code>, or <code>startRemoteSubStreamView()</code> is called.</p>
+<p>param:</p>
+<p>userId ID of the local or remote user. <code>userId == null</code> indicates the ID of the local user, while <code>userId != null</code> indicates the ID of a remote user.</p>
+<p>streamType Video stream type: camera or screen sharing.</p>
+<p>width Image width</p>
+<p>height Image height</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(13)</code></span>
+  </div>
+</dd>
+
+        <dt id="onMicDidReady" class="constant">
+  <span class="name ">onMicDidReady</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Mic is ready</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(24)</code></span>
+  </div>
+</dd>
+
+        <dt id="onMissCustomCmdMsg" class="constant">
+  <span class="name ">onMissCustomCmdMsg</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for loss of custom message</p>
+<p>TRTC uses the UDP channel; therefore, even if reliable transfer is set, it cannot guarantee that no message will be lost; instead, it can only reduce the message loss rate to a very small value and meet general reliability requirements. After reliable transfer is set on the sender, the SDK will use this callback to notify of the number of custom messages lost during transfer in the specified past time period (usually 5s).</p>
+<p>Note:</p>
+<p>Only when reliable transfer is set on the sender can the receiver receive the callback for message loss.</p>
+<p>param:</p>
+<p>userId User ID</p>
+<p>cmdID Data stream ID</p>
+<p>errCode Error code. The value is -1 on the current version</p>
+<p>missed Number of lost messages</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(27)</code></span>
+  </div>
+</dd>
+
+        <dt id="onMusicObserverComplete" class="constant">
+  <span class="name ">onMusicObserverComplete</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Background music playback end</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(36)</code></span>
+  </div>
+</dd>
+
+        <dt id="onMusicObserverPlayProgress" class="constant">
+  <span class="name ">onMusicObserverPlayProgress</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Background music playback progress</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(35)</code></span>
+  </div>
+</dd>
+
+        <dt id="onMusicObserverStart" class="constant">
+  <span class="name ">onMusicObserverStart</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Background music playback start</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(34)</code></span>
+  </div>
+</dd>
+
+        <dt id="onNetworkQuality" class="constant">
+  <span class="name ">onNetworkQuality</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Network quality: this callback is triggered once every 2 seconds to collect statistics of the current network upstreaming and downstreaming quality</p>
+<p><code>userId</code> is the local user ID, indicating the current local video quality</p>
+<p>param:</p>
+<p>localQuality Upstream network quality</p>
+<p>remoteQuality Downstream network quality</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(17)</code></span>
+  </div>
+</dd>
+
+        <dt id="onRecvCustomCmdMsg" class="constant">
+  <span class="name ">onRecvCustomCmdMsg</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for receipt of custom message</p>
+<p>When a user in a room uses <code>sendCustomCmdMsg</code> to send a custom message, other users in the room can receive the message through the <code>onRecvCustomCmdMsg</code> API.</p>
+<p>param:</p>
+<p>userId User ID</p>
+<p>cmdID Command ID</p>
+<p>seq Message serial number</p>
+<p>message Message data</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(26)</code></span>
+  </div>
+</dd>
+
+        <dt id="onRecvSEIMsg" class="constant">
+  <span class="name ">onRecvSEIMsg</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for receipt of SEI message</p>
+<p>When a user in a room uses <code>sendSEIMsg</code> to send data, other users in the room can receive the data through the <code>onRecvSEIMsg</code> API.</p>
+<p>param:</p>
+<p>userId User ID</p>
+<p>message Data</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(28)</code></span>
+  </div>
+</dd>
+
+        <dt id="onRemoteUserEnterRoom" class="constant">
+  <span class="name ">onRemoteUserEnterRoom</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>A user enters the current room</p>
+<p>For the sake of performance, the behaviors of this notification will be different in two different application scenarios:</p>
+<p>Call scenario (<code>TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL</code> or <code>TRTCCloudDef.TRTC_APP_SCENE_AUDIOCALL</code>): users in this scenario do not have different roles, and this notification will be triggered whenever a user enters the room.</p>
+<p>Live streaming scenario (<code>TRTCCloudDef.TRTC_APP_SCENE_LIVE</code> or <code>TRTCCloudDef.TRTC_APP_SCENE_VOICE_CHATROOM</code>): this scenario does not limit the number of audience users. If any user entering or exiting the room could trigger the callback, it would cause great performance loss. Therefore, this notification will be triggered only when an anchor rather than an audience user enters the room.</p>
+<p>param:</p>
+<p>userId User ID</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(5)</code></span>
+  </div>
+</dd>
+
+        <dt id="onRemoteUserLeaveRoom" class="constant">
+  <span class="name ">onRemoteUserLeaveRoom</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>A user exits the current room</p>
+<p>Similar to <code>onRemoteUserEnterRoom</code>, the behaviors of this notification will be different in two different application scenarios:</p>
+<p>Call scenario (<code>TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL</code> or <code>TRTCCloudDef.TRTC_APP_SCENE_AUDIOCALL</code>): users in this scenario do not have different roles, and this notification will be triggered whenever a user exits the room.</p>
+<p>Live streaming scenario (<code>TRTCCloudDef.TRTC_APP_SCENE_LIVE</code> or <code></code>TRTCCloudDef.TRTC_APP_SCENE_VOICE_CHATROOM`): this notification will be triggered only when an anchor rather than an audience user exits the room.</p>
+<p>param:</p>
+<p>userId User ID</p>
+<p>reason Reason for exiting the room. 0: the user proactively exited the room; 1: the user exited the room due to timeout; 2: the user was kicked out of the room.</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(6)</code></span>
+  </div>
+</dd>
+
+        <dt id="onScreenCapturePaused" class="constant">
+  <span class="name ">onScreenCapturePaused</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>This callback will be returned by the SDK when screen sharing is paused</p>
+<p>Parameters</p>
+<p>reason Reason. 0: the user paused proactively; 1: screen sharing was paused as the screen window became invisible</p>
+<p>Note: the value called back is only valid for iOS</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(39)</code></span>
+  </div>
+</dd>
+
+        <dt id="onScreenCaptureResumed" class="constant">
+  <span class="name ">onScreenCaptureResumed</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>This callback will be returned by the SDK when screen sharing is resumed</p>
+<p>Parameters</p>
+<p>reason Reason for resumption. 0: the user resumed proactively; 1: screen sharing was resumed as the screen window became visible</p>
+<p>Note: the value called back is only valid for iOS</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(40)</code></span>
+  </div>
+</dd>
+
+        <dt id="onScreenCaptureStarted" class="constant">
+  <span class="name ">onScreenCaptureStarted</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>This callback will be returned by the SDK when screen sharing is started</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(38)</code></span>
+  </div>
+</dd>
+
+        <dt id="onScreenCaptureStoped" class="constant">
+  <span class="name ">onScreenCaptureStoped</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>This callback will be returned by the SDK when screen sharing is stopped</p>
+<p>Parameters</p>
+<p>reason Reason for stop. 0: the user stopped proactively; 1: screen sharing stopped as the shared window was closed</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(41)</code></span>
+  </div>
+</dd>
+
+        <dt id="onSendFirstLocalAudioFrame" class="constant">
+  <span class="name ">onSendFirstLocalAudioFrame</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>The first local audio frame data has been sent</p>
+<p>The SDK will start capturing the mic and encoding the captured audio after successful call of <code>enterRoom()</code> and <code>startLocalAudio()</code>. This callback event will be returned after the SDK successfully sends the first audio frame data to the cloud.</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(16)</code></span>
+  </div>
+</dd>
+
+        <dt id="onSendFirstLocalVideoFrame" class="constant">
+  <span class="name ">onSendFirstLocalVideoFrame</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>The first local audio frame data has been sent</p>
+<p>The SDK will start capturing the camera and encode the captured image after successful call of <code>enterRoom()</code> and <code>startLocalPreview()</code>. This callback event will be returned after the SDK successfully sends the first video frame data to the cloud.</p>
+<p>param:</p>
+<p>streamType Video stream type: big image, small image, or substream image (screen sharing)</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(15)</code></span>
+  </div>
+</dd>
+
+        <dt id="onSetMixTranscodingConfig" class="constant">
+  <span class="name ">onSetMixTranscodingConfig</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for setting On-Cloud MixTranscoding parameters, which corresponds to the <code>setMixTranscodingConfig()</code> API in <code>TRTCCloud</code></p>
+<p>param:</p>
+<p>errCode 0: success; other values: failure</p>
+<p>errMsg Specific cause of error</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(33)</code></span>
+  </div>
+</dd>
+
+        <dt id="onSnapshotComplete" class="constant">
+  <span class="name ">onSnapshotComplete</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for screencapturing completion</p>
+<p>Parameters</p>
+<p><code>errCode</code> of 0: success; other values: failure</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(37)</code></span>
+  </div>
+</dd>
+
+        <dt id="onSpeedTest" class="constant">
+  <span class="name ">onSpeedTest</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for server speed test. SDK tests the speed of multiple server IPs, and the test result of each IP is returned through this callback notification</p>
+<p>param:</p>
+<p>currentResult Current speed test result</p>
+<p>finishedCount Number of servers on which speed test has been performed</p>
+<p>totalCount Total number of servers on which speed test needs to be performed</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(22)</code></span>
+  </div>
+</dd>
+
+        <dt id="onStartPublishCDNStream" class="constant">
+  <span class="name ">onStartPublishCDNStream</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for completion of starting relayed push to CDN</p>
+<p>This callback corresponds to the <code>startPublishCDNStream()</code> API in <code>TRTCCloud</code></p>
+<p>Note: if <code>Start</code> callback is successful, the relayed push request has been successfully sent to Tencent Cloud. If the target CDN is exceptional, relayed push may fail.</p>
+<p>param:</p>
+<p>errCode 0: success; other values: failure</p>
+<p>errMsg Specific cause of error</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(31)</code></span>
+  </div>
+</dd>
+
+        <dt id="onStartPublishing" class="constant">
+  <span class="name ">onStartPublishing</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for starting pushing to Tencent Cloud CSS CDN, which corresponds to the <code>startPublishing()</code> API in <code>TRTCCloud</code></p>
+<p>param:</p>
+<p>errCode	0: success; other values: failure</p>
+<p>errMsg	Specific cause of error</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(29)</code></span>
+  </div>
+</dd>
+
+        <dt id="onStatistics" class="constant">
+  <span class="name ">onStatistics</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for technical metric statistics</p>
+<p>If you are familiar with audio/video terms, you can use this callback to get all technical metrics of the SDK. If you are developing an audio/video project for the first time, you can focus only on the <code>onNetworkQuality</code> callback.</p>
+<p>Note: the callback is triggered once every 2 seconds</p>
+<p>param:</p>
+<p>statics Status data</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(18)</code></span>
+  </div>
+</dd>
+
+        <dt id="onStopPublishCDNStream" class="constant">
+  <span class="name ">onStopPublishCDNStream</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for completion of stopping relayed push to CDN</p>
+<p>This callback corresponds to the <code>stopPublishCDNStream()</code> API in <code>TRTCCloud</code></p>
+<p>param:</p>
+<p>errCode 0: success; other values: failure</p>
+<p>errMsg Specific cause of error</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(32)</code></span>
+  </div>
+</dd>
+
+        <dt id="onStopPublishing" class="constant">
+  <span class="name ">onStopPublishing</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for stopping pushing to Tencent Cloud CSS CDN, which corresponds to the <code>stopPublishing()</code> API in <code>TRTCCloud</code></p>
+<p>param:</p>
+<p>errCode 0: success; other values: failure</p>
+<p>errMsg	Specific cause of error</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(30)</code></span>
+  </div>
+</dd>
+
+        <dt id="onSwitchRole" class="constant">
+  <span class="name ">onSwitchRole</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for role switch</p>
+<p>Calling the <code>switchRole()</code> API in <code>TRTCCloud</code> will switch between the anchor and audience roles, which will be accompanied by a line switch process. After the SDK switches the roles, the <code>onSwitchRole()</code> event callback will be returned.</p>
+<p>param:</p>
+<p>errCode Error code. 0 indicates a successful switch</p>
+<p>errMsg	Error message</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(4)</code></span>
+  </div>
+</dd>
+
+        <dt id="onSwitchRoom" class="constant">
+  <span class="name ">onSwitchRoom</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for the result of room switching (switchRoom)</p>
+<p>param:</p>
+<p>errCode   Error code</p>
+<p>errMsg   Error message</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(9)</code></span>
+  </div>
+</dd>
+
+        <dt id="onTestMicVolume" class="constant">
+  <span class="name ">onTestMicVolume</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for mic test volume</p>
+<p>The mic test API <code>startMicDeviceTest</code> will trigger this callback</p>
+<p>Note: this callback only supports Windows and macOS platforms</p>
+<p>Parameters:</p>
+<p>volume   Volume value between 0 and 100</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(43)</code></span>
+  </div>
+</dd>
+
+        <dt id="onTestSpeakerVolume" class="constant">
+  <span class="name ">onTestSpeakerVolume</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for speaker test volume</p>
+<p>The speaker test API <code>startSpeakerDeviceTest</code> will trigger this callback</p>
+<p>Note: this callback only supports Windows and macOS platforms</p>
+<p>Parameters:</p>
+<p>volume   Volume value between 0 and 100</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(44)</code></span>
+  </div>
+</dd>
+
+        <dt id="onTryToReconnect" class="constant">
+  <span class="name ">onTryToReconnect</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>The SDK tries to connect to the server again</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(20)</code></span>
+  </div>
+</dd>
+
+        <dt id="onUserAudioAvailable" class="constant">
+  <span class="name ">onUserAudioAvailable</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Whether the remote user has playable audio data</p>
+<p>param:</p>
+<p>userId User ID</p>
+<p>available Whether audio is enabled</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(12)</code></span>
+  </div>
+</dd>
+
+        <dt id="onUserSubStreamAvailable" class="constant">
+  <span class="name ">onUserSubStreamAvailable</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Whether the remote user has a playable substream image (generally for screen sharing)</p>
+<p>param:</p>
+<p>userId User ID</p>
+<p>available Whether screen sharing is enabled</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(11)</code></span>
+  </div>
+</dd>
+
+        <dt id="onUserVideoAvailable" class="constant">
+  <span class="name ">onUserVideoAvailable</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Whether the remote user has a playable primary image (generally for camera)</p>
+<p>When the <code>onUserVideoAvailable(userId, true)</code> notification is received, it indicates that available video data frames of the specified image channel have arrived. At this time, the <code>startRemoteView(userid)</code> API needs to be called to load the image of the remote user. Then, the callback for rendering the first video frame, i.e., <code>onFirstVideoFrame(userid)</code>, will be received.</p>
+<p>When the <code>onUserVideoAvailable(userId, false)</code> notification is received, it indicates that the specified channel of remote image has been disabled, which may be because the user called <code>muteLocalVideo()</code> or <code>stopLocalPreview()</code>.</p>
+<p>param:</p>
+<p>userId User ID</p>
+<p>available Whether image is enabled</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(10)</code></span>
+  </div>
+</dd>
+
+        <dt id="onUserVoiceVolume" class="constant">
+  <span class="name ">onUserVoiceVolume</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Callback for volume, including the volume of each <code>userId</code> and total remote volume</p>
+<p>The <code>enableAudioVolumeEvaluation</code> API in <code>TRTCCloud</code> can be used to enable this callback or set its triggering interval. It should be noted that after <code>enableAudioVolumeEvaluation</code> is called to enable the volume callback, no matter whether there is a user speaking in the channel, the callback will be called at the set time interval. If there is no one speaking, <code>userVolumes</code> will be empty, and <code>totalVolume</code> will be <code>0</code>.</p>
+<p>Note: if <code>userId</code> is the local user ID, it indicates the volume of the local user. <code>userVolumes</code> only includes the volume information of users who are speaking (i.e., volume is not 0).</p>
+<p>param:</p>
+<p>userVolumes Volume of all members who are speaking in the room. Value range: 0–100.</p>
+<p>totalVolume Total volume of all remote members. Value range: 0–100.</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(25)</code></span>
+  </div>
+</dd>
+
+        <dt id="onWarning" class="constant">
+  <span class="name ">onWarning</span>
+  <span class="signature">&#8594; const <a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>
+  
+
+</dt>
+<dd>
+  <p>Warning callback. This callback is used to alert you of some non-serious problems such as lag or recoverable decoding failure</p>
+<p>param:</p>
+<p>warningCode Warning code</p>
+<p>warningMsg Warning message</p>
+<p>extraInfo Extended field. Certain warning codes may carry extra information for troubleshooting</p> 
+  
+
+  <div>
+    <span class="signature"><code>const TRTCCloudListener(1)</code></span>
+  </div>
+</dd>
+
+        <dt id="values" class="constant">
+  <span class="name ">values</span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  <p>A constant List of the values in this enum, in order of their declaration.</p> 
+  
+
+  <div>
+    <span class="signature"><code>const List&lt;<wbr><span class="type-parameter">TRTCCloudListener</span>&gt;</code></span>
+  </div>
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  The hash code for this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">[...]</a>
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="index" class="property">
+  <span class="name">index</span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd>
+  <p>The integer index of this enum.</p> 
+  <div class="features">final</div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object. 
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-methods">
+      <h2>Methods</h2>
+      <dl class="callables">
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a non-existent method or property is accessed. <a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toString" class="callable">
+  <span class="name"><a href="../trtc_cloud_listener/TRTCCloudListener/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  A string representation of this object. <a href="../trtc_cloud_listener/TRTCCloudListener/toString.html">[...]</a>
+  <div class="features">override</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor inherited" id="operators">
+      <h2>Operators</h2>
+      <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator. <a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">tencent_trtc_cloud_international</a></li>
+  <li><a href="../trtc_cloud_listener/trtc_cloud_listener-library.html">trtc_cloud_listener</a></li>
+  <li class="self-crumb">TRTCCloudListener enum</li>
+</ol>
+
+
+    <h5>trtc_cloud_listener library</h5>
+    <ol>
+
+
+
+
+
+
+  <li class="section-title"><a href="../trtc_cloud_listener/trtc_cloud_listener-library.html#enums">Enums</a></li>
+  <li><a href="../trtc_cloud_listener/TRTCCloudListener.html">TRTCCloudListener</a></li>
+
+
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <ol>
+
+
+    <li class="section-title"><a href="../trtc_cloud_listener/TRTCCloudListener.html#constants">Constants</a></li>
+    <li>onCameraDidReady</li>
+    <li>onConnectionLost</li>
+    <li>onConnectionRecovery</li>
+    <li>onConnectOtherRoom</li>
+    <li>onDeviceChange</li>
+    <li>onDisConnectOtherRoom</li>
+    <li>onEnterRoom</li>
+    <li>onError</li>
+    <li>onExitRoom</li>
+    <li>onFirstAudioFrame</li>
+    <li>onFirstVideoFrame</li>
+    <li>onMicDidReady</li>
+    <li>onMissCustomCmdMsg</li>
+    <li>onMusicObserverComplete</li>
+    <li>onMusicObserverPlayProgress</li>
+    <li>onMusicObserverStart</li>
+    <li>onNetworkQuality</li>
+    <li>onRecvCustomCmdMsg</li>
+    <li>onRecvSEIMsg</li>
+    <li>onRemoteUserEnterRoom</li>
+    <li>onRemoteUserLeaveRoom</li>
+    <li>onScreenCapturePaused</li>
+    <li>onScreenCaptureResumed</li>
+    <li>onScreenCaptureStarted</li>
+    <li>onScreenCaptureStoped</li>
+    <li>onSendFirstLocalAudioFrame</li>
+    <li>onSendFirstLocalVideoFrame</li>
+    <li>onSetMixTranscodingConfig</li>
+    <li>onSnapshotComplete</li>
+    <li>onSpeedTest</li>
+    <li>onStartPublishCDNStream</li>
+    <li>onStartPublishing</li>
+    <li>onStatistics</li>
+    <li>onStopPublishCDNStream</li>
+    <li>onStopPublishing</li>
+    <li>onSwitchRole</li>
+    <li>onSwitchRoom</li>
+    <li>onTestMicVolume</li>
+    <li>onTestSpeakerVolume</li>
+    <li>onTryToReconnect</li>
+    <li>onUserAudioAvailable</li>
+    <li>onUserSubStreamAvailable</li>
+    <li>onUserVideoAvailable</li>
+    <li>onUserVoiceVolume</li>
+    <li>onWarning</li>
+    <li>values</li>
+
+    <li class="section-title">
+      <a href="../trtc_cloud_listener/TRTCCloudListener.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li>index</li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+    <li class="section-title"><a href="../trtc_cloud_listener/TRTCCloudListener.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li><a href="../trtc_cloud_listener/TRTCCloudListener/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../trtc_cloud_listener/TRTCCloudListener.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    tencent_trtc_cloud_international
+      1.0.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
