@@ -31,6 +31,6 @@ Pod::Spec.new do |s|
 
   # SDK 依赖
   # s.dependency 'TXLiteAVSDK_TRTC','8.8.10260'
-  s.dependency 'TXLiteAVSDK_TRTC','9.6.0.11300'
+  s.dependency 'TXLiteAVSDK_TRTC','9.6.11300'
 end
 
