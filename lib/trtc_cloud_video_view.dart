@@ -1,19 +1,20 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+
 import 'trtc_cloud_def.dart';
 
 /// @nodoc
 /// channel标识符
-String channelType = TRTCCloudDef.TRTC_VideoView_SurfaceView;
+String _channelType = TRTCCloudDef.TRTC_VideoView_SurfaceView;
 
 /// @nodoc
 /// Flutter 支持两种集成模式：虚拟显示模式 (Virtual displays) 和混合集成模式 (Hybrid composition) 。
-String viewMode = TRTCCloudDef.TRTC_VideoView_Model_Virtual;
+String _viewMode = TRTCCloudDef.TRTC_VideoView_Model_Virtual;
 
 /// 视频view窗口,显示本地视频、远端视频或辅流
 ///
@@ -38,40 +39,46 @@ class TRTCCloudVideoView extends StatefulWidget {
   final String? viewMode;
   final CustomRender? textureParam;
   final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
-  const TRTCCloudVideoView(
-      {Key? key,
+
+  const TRTCCloudVideoView({
+    Key? key,
+    this.viewType,
+    this.viewMode,
+    this.textureParam,
+    this.onViewCreated,
+    this.gestureRecognizers,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return TRTCCloudVideoViewState(
       this.viewType,
       this.viewMode,
       this.textureParam,
-      this.onViewCreated,
-      this.gestureRecognizers})
-      : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() =>
-      TRTCCloudVideoViewState(this.viewType, this.viewMode, this.textureParam);
+    );
+  }
 }
 
 //// @nodoc
 class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
   int? _textureId;
   CustomRender? _textureParam;
-  TRTCCloudVideoViewState(
-      String? viewType, String? mode, CustomRender? textureParam) {
+
+  TRTCCloudVideoViewState(String? viewType, String? mode, CustomRender? textureParam) {
     _textureParam = textureParam;
     if (viewType != null) {
-      channelType = viewType;
+      _channelType = viewType;
     }
     if (mode != null) {
-      viewMode = mode;
+      _viewMode = mode;
     }
     if (Platform.isAndroid && viewType != null) {
-      channelType = viewType;
+      _channelType = viewType;
     } else if (Platform.isIOS || kIsWeb) {
-      channelType = TRTCCloudDef.TRTC_VideoView_TextureView;
+      _channelType = TRTCCloudDef.TRTC_VideoView_TextureView;
     } else {
       // Mac/Windows只支持纹理渲染
-      channelType = TRTCCloudDef.TRTC_VideoView_Texture;
+      _channelType = TRTCCloudDef.TRTC_VideoView_Texture;
     }
   }
 
@@ -83,17 +90,15 @@ class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
           widget.textureParam!.height != oldWidget.textureParam!.height) {
         if (widget.textureParam!.isLocal) {
           //宽高变化时更新宽高，为了保证不变形可能会有黑边，如果不想要黑边可以调用setVideoEncoderParam设置接近宽高的分辨率
-          MethodChannel('trtcCloudChannel').invokeMethod(
-              'updateLocalVideoRender', {
+          MethodChannel('trtcCloudChannel').invokeMethod('updateLocalVideoRender', {
             "width": widget.textureParam!.width,
-            "height": widget.textureParam!.height
+            "height": widget.textureParam!.height,
           });
         } else {
-          MethodChannel('trtcCloudChannel')
-              .invokeMethod('updateRemoteVideoRender', {
+          MethodChannel('trtcCloudChannel').invokeMethod('updateRemoteVideoRender', {
             "textureID": _textureId,
             "width": widget.textureParam!.width,
-            "height": widget.textureParam!.height
+            "height": widget.textureParam!.height,
           });
         }
       }
@@ -103,34 +108,30 @@ class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
   @override
   void initState() {
     super.initState();
-    if (channelType == TRTCCloudDef.TRTC_VideoView_Texture &&
-        _textureParam != null) {
+    if (_channelType == TRTCCloudDef.TRTC_VideoView_Texture && _textureParam != null) {
       if (_textureParam!.isLocal) {
-        MethodChannel('trtcCloudChannel')
-            .invokeMethod('setLocalVideoRenderListener', {
+        MethodChannel('trtcCloudChannel').invokeMethod('setLocalVideoRenderListener', {
           "userId": _textureParam!.userId,
-          "isFront":
-              _textureParam!.isFront == null ? true : _textureParam!.isFront,
+          "isFront": _textureParam!.isFront == null ? true : _textureParam!.isFront,
           "streamType": _textureParam!.streamType,
           "width": _textureParam!.width,
-          "height": _textureParam!.height
-        }).then((value) => {
-                  setState(() {
-                    _textureId = value;
-                  })
-                });
+          "height": _textureParam!.height,
+        }).then((value) {
+          setState(() {
+            _textureId = value;
+          });
+        });
       } else {
-        MethodChannel('trtcCloudChannel')
-            .invokeMethod('setRemoteVideoRenderListener', {
+        MethodChannel('trtcCloudChannel').invokeMethod('setRemoteVideoRenderListener', {
           "userId": _textureParam!.userId,
           "streamType": _textureParam!.streamType,
           "width": _textureParam!.width,
-          "height": _textureParam!.height
-        }).then((value) => {
-                  setState(() {
-                    _textureId = value;
-                  })
-                });
+          "height": _textureParam!.height,
+        }).then((value) {
+          setState(() {
+            _textureId = value;
+          });
+        });
       }
       return;
     }
@@ -139,16 +140,14 @@ class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
   @override
   void dispose() {
     super.dispose();
-    if (channelType == TRTCCloudDef.TRTC_VideoView_Texture &&
-        _textureId != null) {
-      MethodChannel('trtcCloudChannel')
-          .invokeMethod('unregisterTexture', {"textureID": _textureId});
+    if (_channelType == TRTCCloudDef.TRTC_VideoView_Texture && _textureId != null) {
+      MethodChannel('trtcCloudChannel').invokeMethod('unregisterTexture', {"textureID": _textureId});
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (channelType == TRTCCloudDef.TRTC_VideoView_Texture) {
+    if (_channelType == TRTCCloudDef.TRTC_VideoView_Texture) {
       if (_textureId != null) {
         return Texture(textureId: _textureId!);
       }
@@ -156,9 +155,8 @@ class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
     }
     if (kIsWeb) {
       return PlatformViewLink(
-        viewType: channelType,
-        surfaceFactory:
-            (BuildContext context, PlatformViewController controller) {
+        viewType: _channelType,
+        surfaceFactory: (BuildContext context, PlatformViewController controller) {
           return PlatformViewSurface(
             controller: controller,
             hitTestBehavior: PlatformViewHitTestBehavior.transparent,
@@ -168,8 +166,7 @@ class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
           );
         },
         onCreatePlatformView: (PlatformViewCreationParams params) {
-          final controller =
-              _HtmlElementViewController(params.id, params.viewType);
+          final controller = _HtmlElementViewController(params.id, params.viewType);
           controller._initialize().then((_) {
             params.onPlatformViewCreated(params.id);
             _onPlatformViewCreated(params.id);
@@ -178,19 +175,18 @@ class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
         },
       );
     } else if (Platform.isAndroid) {
-      if (viewMode == TRTCCloudDef.TRTC_VideoView_Model_Virtual) {
+      if (_viewMode == TRTCCloudDef.TRTC_VideoView_Model_Virtual) {
         //虚拟现实模式
         return AndroidView(
-          viewType: channelType,
+          viewType: _channelType,
           onPlatformViewCreated: _onPlatformViewCreated,
           gestureRecognizers: widget.gestureRecognizers,
         );
       } else {
         //混合集成模式
         return PlatformViewLink(
-          viewType: channelType,
-          surfaceFactory:
-              (BuildContext context, PlatformViewController controller) {
+          viewType: _channelType,
+          surfaceFactory: (BuildContext context, PlatformViewController controller) {
             return PlatformViewSurface(
               controller: controller as AndroidViewController,
               hitTestBehavior: PlatformViewHitTestBehavior.transparent,
@@ -202,7 +198,7 @@ class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
           onCreatePlatformView: (PlatformViewCreationParams params) {
             return PlatformViewsService.initSurfaceAndroidView(
               id: params.id,
-              viewType: channelType,
+              viewType: _channelType,
               layoutDirection: TextDirection.ltr,
               creationParamsCodec: StandardMessageCodec(),
             )
@@ -216,7 +212,7 @@ class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
       }
     } else if (Platform.isIOS) {
       return UiKitView(
-        viewType: channelType,
+        viewType: _channelType,
         onPlatformViewCreated: _onPlatformViewCreated,
         gestureRecognizers: widget.gestureRecognizers,
       );
@@ -235,8 +231,7 @@ class TRTCCloudVideoViewState extends State<TRTCCloudVideoView> {
   }
 }
 
-class _HtmlElementViewController extends PlatformViewController
-    with WidgetsBindingObserver {
+class _HtmlElementViewController extends PlatformViewController with WidgetsBindingObserver {
   _HtmlElementViewController(
     this.viewId,
     this.viewType,
@@ -284,8 +279,7 @@ class _HtmlElementViewController extends PlatformViewController
 /// @nodoc
 /// 视频控制器方法
 class TRTCCloudVideoViewController {
-  TRTCCloudVideoViewController(int id)
-      : _channel = new MethodChannel(channelType + '_$id');
+  TRTCCloudVideoViewController(int id) : _channel = new MethodChannel(_channelType + '_$id');
 
   final MethodChannel _channel;
 
@@ -325,10 +319,11 @@ class TRTCCloudVideoViewController {
   ///
   /// streamType 指定要观看 userId 的视频流类型：
   Future<void> updateRemoteView(viewId, streamType, userId) {
-    return _channel.invokeMethod(
-      'updateRemoteView',
-      {"viewId": viewId, "streamType": streamType, "userId": userId},
-    );
+    return _channel.invokeMethod('updateRemoteView', {
+      "viewId": viewId,
+      "streamType": streamType,
+      "userId": userId,
+    });
   }
 
   /// 显示远端视频或辅流
@@ -344,10 +339,10 @@ class TRTCCloudVideoViewController {
   ///* 低清大画面：TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_SMALL
   ///
   ///* 辅流（屏幕分享）：TRTCCloudDe.TRTC_VIDEO_STREAM_TYPE_SUB
-  Future<void> startRemoteView(
-      String userId, // 用户ID
-      int streamType) {
-    return _channel.invokeMethod(
-        'startRemoteView', {"userId": userId, "streamType": streamType});
+  Future<void> startRemoteView(String userId, int streamType) {
+    return _channel.invokeMethod('startRemoteView', {
+      "userId": userId,
+      "streamType": streamType,
+    });
   }
 }

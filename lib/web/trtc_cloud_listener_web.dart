@@ -14,7 +14,9 @@ class TRTCCloudListenerWeb {
         break;
       }
     }
-    if (type == null) return;
+    if (type == null) {
+      return;
+    }
     try {
       print('<<<========$typeStr  . params :$params');
       switch (type) {
@@ -104,8 +106,9 @@ class TRTCCloudListenerWeb {
         case TRTCCloudListener.onTestSpeakerVolume:
           break;
       }
-      if (TRTCCloud.listener != null)
+      if (TRTCCloud.listener != null) {
         TRTCCloud.listener!.doCallBack(type, params);
+      }
     } catch (error) {
       print(error);
     }

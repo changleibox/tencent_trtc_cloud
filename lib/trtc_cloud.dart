@@ -1,13 +1,15 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'trtc_cloud_video_view.dart';
-import 'trtc_cloud_listener.dart';
+
 import 'trtc_cloud_def.dart';
-import 'tx_beauty_manager.dart';
+import 'trtc_cloud_listener.dart';
+import 'trtc_cloud_video_view.dart';
 import 'tx_audio_effect_manager.dart';
+import 'tx_beauty_manager.dart';
 import 'tx_device_manager.dart';
 
 /// 腾讯云视频通话功能的主要接口类
@@ -255,8 +257,7 @@ class TRTCCloud {
   ///
   /// TRTCCloudDef.TRTCRoleAudience 观众，只能观看，不能上行视频和音频，一个房间里的观众人数没有上限。
 
-  Future<void> switchRole(int role // 目标角色，默认为主播
-      ) {
+  Future<void> switchRole(int role) {
     return _channel.invokeMethod('switchRole', {
       "role": role,
     });
@@ -273,12 +274,7 @@ class TRTCCloud {
   /// autoRecvVideo	true：自动接收视频数据；false：需要调用 startRemoteView/stopRemoteView 进行请求或取消。默认值：true
   ///
   /// 注意：需要在进房前设置才能生效。
-  Future<void> setDefaultStreamRecvMode(
-      bool
-          autoRecvAudio, // true：自动接收音频数据；false：需要调用 muteRemoteAudio 进行请求或取消。默认值：true。
-      bool
-          autoRecvVideo // true：自动接收视频数据；false：需要调用 startRemoteView/stopRemoteView 进行请求或取消。默认值：true。
-      ) {
+  Future<void> setDefaultStreamRecvMode(bool autoRecvAudio, bool autoRecvVideo) {
     return _channel.invokeMethod('setDefaultStreamRecvMode', {
       "autoRecvAudio": autoRecvAudio,
       "autoRecvVideo": autoRecvVideo,
@@ -366,8 +362,7 @@ class TRTCCloud {
   /// config	请参考 trtc_cloud.def.dart 中关于 TRTCTranscodingConfig 的介绍。如果传入 null 则取消云端混流转码。
   Future<void> setMixTranscodingConfig(TRTCTranscodingConfig? config) {
     if (kIsWeb) {
-      return _channel.invokeMethod(
-          'setMixTranscodingConfig', jsonEncode(config));
+      return _channel.invokeMethod('setMixTranscodingConfig', jsonEncode(config));
     }
     return _channel.invokeMethod('setMixTranscodingConfig', {
       "config": jsonEncode(config),
@@ -380,9 +375,8 @@ class TRTCCloud {
   ///
   /// 参数：
   ///
-  /// mute	true：暂停；false：恢复
-  Future<void> muteLocalVideo(bool mute // true：屏蔽；false：开启，默认值：false。
-      ) {
+  /// mute true：屏蔽；false：开启，默认值：false。
+  Future<void> muteLocalVideo(bool mute) {
     return _channel.invokeMethod('muteLocalVideo', {
       "mute": mute,
     });
@@ -397,16 +391,13 @@ class TRTCCloud {
   /// assetUrl可以为flutter中定义的asset资源地址如'images/watermark_img.png'，也可以为网络图片地址
   ///
   /// fps	设置推送图片帧率，最小值为5，最大值为20，默认10。
-  Future<int?> setVideoMuteImage(
-      String? assetUrl, //assets 中的资源地址
-      int fps) async {
+  Future<int?> setVideoMuteImage(String? assetUrl, int fps) async {
     String? imageUrl = assetUrl;
     String type = 'network'; //默认为网络图片
     if (assetUrl != null && assetUrl.indexOf('http') != 0) {
       type = 'local';
     }
-    return _channel.invokeMethod(
-        'setVideoMuteImage', {"imageUrl": imageUrl, "type": type, "fps": fps});
+    return _channel.invokeMethod('setVideoMuteImage', {"imageUrl": imageUrl, "type": type, "fps": fps});
   }
 
   /// 开启本地视频的预览画面
@@ -418,15 +409,11 @@ class TRTCCloud {
   /// frontCamera	true：前置摄像头；false：后置摄像头
   ///
   /// viewId TRTCCloudVideoView生成的viewId
-  Future<void> startLocalPreview(
-      bool frontCamera, // true：前置摄像头；false：后置摄像头。
-      int? viewId) {
+  Future<void> startLocalPreview(bool frontCamera, int? viewId) {
     if (viewId == null) {
-      return _channel
-          .invokeMethod('startLocalPreview', {"isFront": frontCamera});
+      return _channel.invokeMethod('startLocalPreview', {"isFront": frontCamera});
     } else {
-      return TRTCCloudVideoViewController(viewId)
-          .startLocalPreview(frontCamera);
+      return TRTCCloudVideoViewController(viewId).startLocalPreview(frontCamera);
     }
   }
 
@@ -453,8 +440,7 @@ class TRTCCloud {
   ///
   /// streamType 指定要观看 userId 的视频流类型：
   Future<void> updateRemoteView(viewId, streamType, userId) {
-    return TRTCCloudVideoViewController(viewId)
-        .updateRemoteView(viewId, streamType, userId);
+    return TRTCCloudVideoViewController(viewId).updateRemoteView(viewId, streamType, userId);
   }
 
   /// 停止本地视频采集及预览。
@@ -477,16 +463,11 @@ class TRTCCloud {
   ///* 辅流（屏幕分享）：TRTCCloudDe.TRTC_VIDEO_STREAM_TYPE_SUB
   ///
   /// viewId TRTCCloudVideoView生成的viewId
-  Future<void> startRemoteView(
-      String userId, // 用户ID
-      int streamType,
-      int? viewId) {
+  Future<void> startRemoteView(String userId, int streamType, int? viewId) {
     if (viewId == null) {
-      return _channel.invokeMethod(
-          'startRemoteView', {"userId": userId, "streamType": streamType});
+      return _channel.invokeMethod('startRemoteView', {"userId": userId, "streamType": streamType});
     } else {
-      return TRTCCloudVideoViewController(viewId)
-          .startRemoteView(userId, streamType);
+      return TRTCCloudVideoViewController(viewId).startRemoteView(userId, streamType);
     }
   }
 
@@ -503,11 +484,8 @@ class TRTCCloud {
   ///* 高清大画面：TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG
   ///* 低清大画面：TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_SMALL
   ///* 辅流（屏幕分享）：TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_SUB
-  Future<void> stopRemoteView(
-      String userId, // 用户ID
-      int streamType) {
-    return _channel.invokeMethod(
-        'stopRemoteView', {"userId": userId, "streamType": streamType});
+  Future<void> stopRemoteView(String userId, int streamType) {
+    return _channel.invokeMethod('stopRemoteView', {"userId": userId, "streamType": streamType});
   }
 
   /// 停止显示所有远端视频画面，同时不再拉取远端用户的视频数据流。
@@ -526,10 +504,7 @@ class TRTCCloud {
   /// userId	对方的用户标识
   ///
   /// mute	是否暂停接收
-  Future<void> muteRemoteVideoStream(
-      String userId, // 用户ID
-      bool mute // 是否停止接收
-      ) {
+  Future<void> muteRemoteVideoStream(String userId, bool mute) {
     return _channel.invokeMethod('muteRemoteVideoStream', {
       "userId": userId,
       "mute": mute,
@@ -543,8 +518,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// mute	是否暂停接收
-  Future<void> muteAllRemoteVideoStreams(bool mute // 是否停止接收
-      ) {
+  Future<void> muteAllRemoteVideoStreams(bool mute) {
     return _channel.invokeMethod('muteAllRemoteVideoStreams', {
       "mute": mute,
     });
@@ -557,10 +531,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// param	视频编码参数，详情请参考 TRTCVideoEncParam 定义
-  Future<void> setVideoEncoderParam(
-      TRTCVideoEncParam
-          param // 视频编码参数，详情请参考 TRTCCloudDef.java 中的 TRTCVideoEncParam 定义。
-      ) {
+  Future<void> setVideoEncoderParam(TRTCVideoEncParam param) {
     if (kIsWeb) {
       return _channel.invokeMethod('setVideoEncoderParam', jsonEncode(param));
     }
@@ -577,8 +548,7 @@ class TRTCCloud {
   ///
   /// param	网络流控参数，详情请参考 trtc_cloud.def.dart 中的 TRTCNetworkQosParam 定义
   Future<void> setNetworkQosParam(TRTCNetworkQosParam param) {
-    return _channel
-        .invokeMethod('setNetworkQosParam', {"param": jsonEncode(param)});
+    return _channel.invokeMethod('setNetworkQosParam', {"param": jsonEncode(param)});
   }
 
   /// 设置本地图像的渲染模式。
@@ -604,8 +574,7 @@ class TRTCCloud {
   ///* 辅流（屏幕分享）：TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_SUB
   ///
   /// renderParams 渲染参数（平铺模式、旋转角度、左右镜像等)，详情请参考 trtc_cloud.def.dart 中的 TRTCRemoteRenderParams参数定义
-  Future<void> setRemoteRenderParams(
-      String userId, int streamType, TRTCRenderParams renderParams) {
+  Future<void> setRemoteRenderParams(String userId, int streamType, TRTCRenderParams renderParams) {
     return _channel.invokeMethod('setRemoteRenderParams', {
       "userId": userId,
       "streamType": streamType,
@@ -624,9 +593,7 @@ class TRTCCloud {
   /// rotation	顺时针旋转角度，目前仅支持0度和180度两个角度：
   ///
   /// TRTCCloudDef.TRTC_VIDEO_ROTATION_0，不旋转（默认值）; TRTCCloudDef.TRTC_VIDEO_ROTATION_180，顺时针旋转180度。
-  Future<void> setVideoEncoderRotation(
-      int rotation // 目前支持 TRTC_VIDEO_ROTATION_0 和 TRTC_VIDEO_ROTATION_180 两个旋转角度，默认值：TRTC_VIDEO_ROTATION_0。
-      ) {
+  Future<void> setVideoEncoderRotation(int rotation) {
     return _channel.invokeMethod('setVideoEncoderRotation', {
       "rotation": rotation,
     });
@@ -639,8 +606,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// mirror	true：镜像；false：不镜像；默认值：false
-  Future<void> setVideoEncoderMirror(bool mirror // true：镜像；false：不镜像；默认值：false。
-      ) {
+  Future<void> setVideoEncoderMirror(bool mirror) {
     return _channel.invokeMethod('setVideoEncoderMirror', {
       "mirror": mirror,
     });
@@ -656,9 +622,7 @@ class TRTCCloud {
   /// TRTCCloudDef.TRTC_GSENSOR_MODE_UIAUTOLAYOUT：开启重力感应，但是 SDK 不会根据陀螺仪自动调整本地 View 的画面方向， 而是交给 Android 系统的自动排布功能（这需要您的 App 界面开启了重力感应适配选项）
   ///
   /// TRTCCloudDef.TRTC_GSENSOR_MODE_UIFIXLAYOUT ：开启重力感应，并且 SDK 会根据陀螺仪自动调整本地 View 的画面方向。
-  Future<void> setGSensorMode(
-      int mode // 重力感应模式，详情请参考 TRTC_GSENSOR_MODE 的定义，默认值：TRTC_GSENSOR_MODE_UIFIXLAYOUT。
-      ) {
+  Future<void> setGSensorMode(int mode) {
     return _channel.invokeMethod('setGSensorMode', {
       "mode": mode,
     });
@@ -726,15 +690,8 @@ class TRTCCloud {
   /// streamType	视频流类型，支持摄像头画面（TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG）和 屏幕分享画面（TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_SUB）。
   ///
   /// path 该路径需精确到文件名及格式后缀，格式后缀决定图片的格式，目前支持的格式有 png/jpg/webp。 例如，指定路径为 path/to/test.png，则会生成一个 png 格式的图片文件。 请指定一个有读写权限的合法路径，否则图片文件无法生成。
-  Future<void> snapshotVideo(
-    String?
-        userId, // 用户 ID，null 表示截取本地视频画面，本地仅支持摄像头画面（TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG）的截取。
-
-    int streamType, // 视频流类型，支持摄像头画面（TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG）和 屏幕分享画面（TRTCCloudDef#TRTC_VIDEO_STREAM_TYPE_SUB）。
-    String path, // 截图后保存的图片地址
-  ) {
-    return _channel.invokeMethod('snapshotVideo',
-        {"userId": userId, "streamType": streamType, "path": path});
+  Future<void> snapshotVideo(String? userId, int streamType, String path) {
+    return _channel.invokeMethod('snapshotVideo', {"userId": userId, "streamType": streamType, "path": path});
   }
 
   /// 开启本地音频的采集和上行,并设置音频质量。
@@ -762,8 +719,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// mute	true：静音；false：取消静音
-  Future<void> muteLocalAudio(bool mute // true：屏蔽；false：开启，默认值：false。
-      ) {
+  Future<void> muteLocalAudio(bool mute) {
     return _channel.invokeMethod('muteLocalAudio', {
       "mute": mute,
     });
@@ -778,10 +734,7 @@ class TRTCCloud {
   /// mute	true：静音；false：取消静音
   ///
   /// 注意：静音时会停止接收该用户的远端音频流并停止播放，取消静音时会自动拉取该用户的远端音频流并进行播放。
-  Future<void> muteRemoteAudio(
-      String userId, // 对方的用户 ID
-      bool mute // true静音，false静音
-      ) {
+  Future<void> muteRemoteAudio(String userId, bool mute) {
     return _channel.invokeMethod('muteRemoteAudio', {
       "userId": userId,
       "mute": mute,
@@ -795,8 +748,7 @@ class TRTCCloud {
   /// mute	true：静音；false：取消静音
   ///
   /// 注意：静音时会停止接收所有用户的远端音频流并停止播放，取消静音时会自动拉取所有用户的远端音频流并进行播放。
-  Future<void> muteAllRemoteAudio(bool mute // true静音，false静音
-      ) {
+  Future<void> muteAllRemoteAudio(bool mute) {
     return _channel.invokeMethod('muteAllRemoteAudio', {
       "mute": mute,
     });
@@ -809,10 +761,7 @@ class TRTCCloud {
   /// userId	远程用户 ID
   ///
   /// volume	音量大小，取值0 - 100
-  Future<void> setRemoteAudioVolume(
-      String userId, // 远程用户 ID
-      int volume // 音量大小，取值0 - 100
-      ) {
+  Future<void> setRemoteAudioVolume(String userId, int volume) {
     return _channel.invokeMethod('setRemoteAudioVolume', {
       "userId": userId,
       "volume": volume,
@@ -824,8 +773,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// volume	音量大小，取值0 - 100
-  Future<void> setAudioCaptureVolume(int volume // volume	音量大小，取值0 - 100，默认值为100
-      ) {
+  Future<void> setAudioCaptureVolume(int volume) {
     return _channel.invokeMethod('setAudioCaptureVolume', {
       "volume": volume,
     });
@@ -843,8 +791,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// volume	音量大小，取值0 - 100
-  Future<void> setAudioPlayoutVolume(int volume // volume	音量大小，取值0 - 100，默认值为100
-      ) {
+  Future<void> setAudioPlayoutVolume(int volume) {
     return _channel.invokeMethod('setAudioPlayoutVolume', {
       "volume": volume,
     });
@@ -862,9 +809,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// intervalMs	决定了 onUserVoiceVolume 回调的触发间隔，单位为ms，最小间隔为100ms，如果小于等于0则会关闭回调，建议设置为300ms；详细的回调规则请参考 onUserVoiceVolume 的注释说明
-  Future<void> enableAudioVolumeEvaluation(
-      int intervalMs // 决定了 onUserVoiceVolume 回调的触发间隔，单位为ms，最小间隔为100ms，如果小于等于0则会关闭回调，建议设置为300ms；详细的回调规则请参考 onUserVoiceVolume 的注释说明。
-      ) {
+  Future<void> enableAudioVolumeEvaluation(int intervalMs) {
     return _channel.invokeMethod('enableAudioVolumeEvaluation', {
       "intervalMs": intervalMs,
     });
@@ -946,12 +891,7 @@ class TRTCCloud {
   /// y	归一化水印位置的 Y 轴坐标，取值[0,1]
   ///
   /// width	归一化水印宽度，取值[0,1]
-  Future<void> setWatermark(
-      String assetUrl, //assets 中的资源地址
-      int streamType,
-      double x,
-      double y,
-      double width) async {
+  Future<void> setWatermark(String assetUrl, int streamType, double x, double y, double width) async {
     String imageUrl = assetUrl;
     String type = 'network'; //默认为网络图片
     if (assetUrl.indexOf('http') != 0) {
@@ -982,20 +922,25 @@ class TRTCCloud {
   /// 在web下需要shareUserId 和 shareUserSig，其他参数无效
   ///
   /// [屏幕录制](https://cloud.tencent.com/document/product/647/45751)
-  Future<void> startScreenCapture(int streamType, TRTCVideoEncParam encParams,
-      {String shareUserId = '',
-      String shareUserSig = '',
-      String appGroup = ''}) {
+  Future<void> startScreenCapture(
+    int streamType,
+    TRTCVideoEncParam encParams, {
+    String shareUserId = '',
+    String shareUserSig = '',
+    String appGroup = '',
+  }) {
     if (kIsWeb) {
       return _channel.invokeMethod('startScreenCapture', {
         "shareUserId": shareUserId,
         "shareUserSig": shareUserSig,
-        "streamType": streamType
+        "streamType": streamType,
       });
     }
     if (!kIsWeb && Platform.isAndroid) {
-      return _channel.invokeMethod('startScreenCapture',
-          {"encParams": jsonEncode(encParams), "streamType": streamType});
+      return _channel.invokeMethod('startScreenCapture', {
+        "encParams": jsonEncode(encParams),
+        "streamType": streamType,
+      });
     }
     if (!kIsWeb && Platform.isIOS && appGroup != '') {
       return _channel.invokeMethod('startScreenCaptureByReplaykit', {
@@ -1009,8 +954,10 @@ class TRTCCloud {
         "streamType": streamType,
       });
     }
-    return _channel.invokeMethod('startScreenCapture',
-        {"streamType": streamType, "encParams": jsonEncode(encParams)});
+    return _channel.invokeMethod('startScreenCapture', {
+      "streamType": streamType,
+      "encParams": jsonEncode(encParams),
+    });
   }
 
   /// 停止屏幕采集
@@ -1063,8 +1010,7 @@ class TRTCCloud {
   /// * 将 reliable 和 ordered 同时设置为 true 或 false，暂不支持交叉设置。
   ///
   /// * 强烈建议不同类型的消息使用不同的 cmdID，这样可以在要求有序的情况下减小消息时延。
-  Future<bool?> sendCustomCmdMsg(
-      int cmdID, String data, bool reliable, bool ordered) {
+  Future<bool?> sendCustomCmdMsg(int cmdID, String data, bool reliable, bool ordered) {
     return _channel.invokeMethod('sendCustomCmdMsg', {
       "cmdID": cmdID,
       "data": data,
@@ -1103,8 +1049,7 @@ class TRTCCloud {
   ///
   /// 如果 repeatCount > 1，多次发送，接收消息 onRecvSEIMsg 回调也可能会收到多次相同的消息，需要去重。
   Future<bool?> sendSEIMsg(String data, int repeatCount) {
-    return _channel
-        .invokeMethod('sendSEIMsg', {"data": data, "repeatCount": repeatCount});
+    return _channel.invokeMethod('sendSEIMsg', {"data": data, "repeatCount": repeatCount});
   }
 
   /// 开始进行网络测速（视频通话期间请勿测试，以免影响通话质量）
@@ -1120,11 +1065,7 @@ class TRTCCloud {
   /// userId	用户标识
   ///
   /// userSig	用户签名
-  Future<void> startSpeedTest(
-      int sdkAppId, // 应用标识
-      String userId, // 用户标识
-      String userSig // 用户签名
-      ) {
+  Future<void> startSpeedTest(int sdkAppId, String userId, String userSig) {
     return _channel.invokeMethod('startSpeedTest', {
       "sdkAppId": sdkAppId,
       "userId": userId,
@@ -1147,9 +1088,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// level	请参见 TRTC_LOG_LEVEL，默认值：TRTCCloudDef.TRTC_LOG_LEVEL_NULL
-  Future<void> setLogLevel(
-      int level // 请参见 TRTC_LOG_LEVEL，默认值：TRTCCloudDef.TRTC_LOG_LEVEL_NULL
-      ) {
+  Future<void> setLogLevel(int level) {
     return _channel.invokeMethod('setLogLevel', {"level": level});
   }
 
@@ -1158,8 +1097,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// enabled	指定是否启用，默认为禁止状态
-  Future<void> setConsoleEnabled(bool enabled // 是否启用
-      ) {
+  Future<void> setConsoleEnabled(bool enabled) {
     return _channel.invokeMethod('setConsoleEnabled', {
       "enabled": enabled,
     });
@@ -1172,8 +1110,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// enabled	指定是否启用，默认为启用状态
-  Future<void> setLogCompressEnabled(bool enabled // 是否启用
-      ) {
+  Future<void> setLogCompressEnabled(bool enabled) {
     return _channel.invokeMethod('setLogCompressEnabled', {
       "enabled": enabled,
     });
@@ -1186,8 +1123,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// path 存储日志路径
-  Future<void> setLogDirPath(String path // 是否启用
-      ) {
+  Future<void> setLogDirPath(String path) {
     return _channel.invokeMethod('setLogDirPath', {
       "path": path,
     });
@@ -1200,8 +1136,7 @@ class TRTCCloud {
   /// 参数：
   ///
   /// showType	0：不显示；1：显示精简版；2：显示全量版，默认为不显示
-  Future<void> showDebugView(int showType // 0：不显示；1：显示精简版；2：显示全量版，默认为不显示
-      ) {
+  Future<void> showDebugView(int showType) {
     return _channel.invokeMethod('showDebugView', {
       "mode": showType,
     });

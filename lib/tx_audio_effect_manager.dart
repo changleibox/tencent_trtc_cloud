@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/services.dart';
+
 import 'trtc_cloud_def.dart';
 
 /// 腾讯云视频通话功能音乐和人声设置接口
 class TXAudioEffectManager {
   static late MethodChannel _channel;
+
   TXAudioEffectManager(channel) {
     _channel = channel;
   }
@@ -29,8 +32,7 @@ class TXAudioEffectManager {
   ///
   /// volume	音量大小，取值0 - 100，默认值为100
   Future<void> setVoiceEarMonitorVolume(int volume) {
-    return _channel
-        .invokeMethod('setVoiceEarMonitorVolume', {"volume": volume});
+    return _channel.invokeMethod('setVoiceEarMonitorVolume', {"volume": volume});
   }
 
   /// 设置人声的混响效果（KTV、小房间、大会堂、低沉、洪亮...）
@@ -73,8 +75,7 @@ class TXAudioEffectManager {
   ///
   /// true: 成功; false: 失败
   Future<bool?> startPlayMusic(AudioMusicParam musicParam) {
-    return _channel
-        .invokeMethod('startPlayMusic', {"musicParam": jsonEncode(musicParam)});
+    return _channel.invokeMethod('startPlayMusic', {"musicParam": jsonEncode(musicParam)});
   }
 
   /// 停止播放背景音乐
@@ -112,8 +113,7 @@ class TXAudioEffectManager {
   ///
   /// volume	音量大小，100为正常音量，取值范围为0 - 100；默认值：100
   Future<void> setMusicPublishVolume(int id, int volume) {
-    return _channel
-        .invokeMethod('setMusicPublishVolume', {"id": id, "volume": volume});
+    return _channel.invokeMethod('setMusicPublishVolume', {"id": id, "volume": volume});
   }
 
   /// 设置背景音乐的本地音量大小，即主播可以通过此接口设置主播自己本地的背景音乐的音量大小。
@@ -124,8 +124,7 @@ class TXAudioEffectManager {
   ///
   /// volume	音量大小，100为正常音量，取值范围为0 - 100；默认值：100
   Future<void> setMusicPlayoutVolume(int id, int volume) {
-    return _channel
-        .invokeMethod('setMusicPlayoutVolume', {"id": id, "volume": volume});
+    return _channel.invokeMethod('setMusicPlayoutVolume', {"id": id, "volume": volume});
   }
 
   /// 设置全局背景音乐的本地和远端音量的大小
@@ -145,8 +144,7 @@ class TXAudioEffectManager {
   ///
   /// pitch	音调，默认值是0.0f，范围是：[-1 ~ 1] 之间的浮点数；
   Future<void> setMusicPitch(int id, double pitch) {
-    return _channel
-        .invokeMethod('setMusicPitch', {"id": id, "pitch": pitch.toString()});
+    return _channel.invokeMethod('setMusicPitch', {"id": id, "pitch": pitch.toString()});
   }
 
   /// 调整背景音乐的变速效果
@@ -157,8 +155,7 @@ class TXAudioEffectManager {
   ///
   /// speedRate	速度，默认值是1.0f，范围是：[0.5 ~ 2] 之间的浮点数；
   Future<void> setMusicSpeedRate(int id, double speedRate) {
-    return _channel.invokeMethod(
-        'setMusicSpeedRate', {"id": id, "speedRate": speedRate.toString()});
+    return _channel.invokeMethod('setMusicSpeedRate', {"id": id, "speedRate": speedRate.toString()});
   }
 
   /// 获取背景音乐当前的播放进度（单位：毫秒）

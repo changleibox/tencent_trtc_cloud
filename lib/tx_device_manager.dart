@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// 设备管理
 class TXDeviceManager {
   static late MethodChannel _channel;
+
   TXDeviceManager(channel) {
     _channel = channel;
   }
@@ -27,8 +29,7 @@ class TXDeviceManager {
   ///
   /// isFrontCamera：false 后置摄像头
   Future<int?> switchCamera(bool isFrontCamera) {
-    return _channel
-        .invokeMethod('switchCamera', {"isFrontCamera": isFrontCamera});
+    return _channel.invokeMethod('switchCamera', {"isFrontCamera": isFrontCamera});
   }
 
   /// 获取摄像头的缩放因子
@@ -49,8 +50,7 @@ class TXDeviceManager {
   /// value	取值范围为1 - 5，数值越大，焦距越远
   ///
   /// 返回  0：操作成功 负数：失败
-  Future<int?> setCameraZoomRatio(double value // 取值范围为1 - 5，数值越大，焦距越远。
-      ) {
+  Future<int?> setCameraZoomRatio(double value) {
     return _channel.invokeMethod('setCameraZoomRatio', {
       "value": value.toString(),
     });
@@ -103,8 +103,7 @@ class TXDeviceManager {
   /// 参数：
   ///
   /// enable	true：开启；false：关闭，默认值：false
-  Future<bool?> enableCameraTorch(bool enable // true：开启；false：关闭，默认值：false。
-      ) {
+  Future<bool?> enableCameraTorch(bool enable) {
     return _channel.invokeMethod('enableCameraTorch', {
       "enable": enable,
     });
@@ -133,9 +132,7 @@ class TXDeviceManager {
   /// 参数：
   ///
   /// type	系统音量类型，如无特殊需求，不推荐您自行设置。
-  Future<void> setSystemVolumeType(
-      int type // 系统音量类型，请参考 TRTCSystemVolumeType，默认值：TRTCSystemVolumeTypeAuto。
-      ) {
+  Future<void> setSystemVolumeType(int type) {
     return _channel.invokeMethod('setSystemVolumeType', {
       "type": type,
     });
@@ -150,8 +147,7 @@ class TXDeviceManager {
   /// 参数：
   ///
   /// route	音频路由，即声音由哪里输出（扬声器、听筒），请参考 TRTCCloudDef.TRTC_AUDIO_ROUTE_SPEAKER，默认值：TRTCCloudDef.TRTC_AUDIO_ROUTE_SPEAKER
-  Future<void> setAudioRoute(int route // 音频路由，即声音由哪里输出（扬声器、听筒）
-      ) {
+  Future<void> setAudioRoute(int route) {
     return _channel.invokeMethod('setAudioRoute', {
       "route": route,
     });
@@ -166,8 +162,7 @@ class TXDeviceManager {
   /// type	设备类型，指定需要获取哪种设备的列表。详见TXMediaDeviceType定义，type 只支持 TXMediaDeviceTypeMic、TXMediaDeviceTypeSpeaker、TXMediaDeviceTypeCamera。
   Future<Map?> getDevicesList(int type) async {
     if (kIsWeb) {
-      List retrunList =
-          jsonDecode(await _channel.invokeMethod('getDevicesList', {
+      List retrunList = jsonDecode(await _channel.invokeMethod('getDevicesList', {
         "type": type,
       }));
       Map mp = Map();
@@ -193,8 +188,7 @@ class TXDeviceManager {
   ///
   /// 0：操作成功 负数：失败
   Future<int?> setCurrentDevice(int type, String deviceId) async {
-    return _channel
-        .invokeMethod('setCurrentDevice', {"type": type, "deviceId": deviceId});
+    return _channel.invokeMethod('setCurrentDevice', {"type": type, "deviceId": deviceId});
   }
 
   /// 获取当前使用的设备
@@ -211,8 +205,7 @@ class TXDeviceManager {
   /// ITRTCDeviceInfo 设备信息，能获取设备 ID 和设备名称
   Future<Map?> getCurrentDevice(int type) async {
     if (kIsWeb) {
-      Map retrunObj = jsonDecode(
-          await _channel.invokeMethod('getCurrentDevice', {"type": type}));
+      Map retrunObj = jsonDecode(await _channel.invokeMethod('getCurrentDevice', {"type": type}));
       return Future.value(retrunObj);
     }
     return _channel.invokeMethod('getCurrentDevice', {"type": type});
@@ -232,8 +225,7 @@ class TXDeviceManager {
   ///
   /// ITRTCDeviceInfo 设备信息，能获取设备 ID 和设备名称
   Future<int?> setCurrentDeviceVolume(int type, int volume) {
-    return _channel.invokeMethod(
-        'setCurrentDeviceVolume', {"type": type, "volume": volume});
+    return _channel.invokeMethod('setCurrentDeviceVolume', {"type": type, "volume": volume});
   }
 
   /// 获取当前设备的音量
@@ -265,8 +257,7 @@ class TXDeviceManager {
   ///
   /// 0：操作成功 负数：失败
   Future<int?> setCurrentDeviceMute(int type, bool mute) {
-    return _channel
-        .invokeMethod('setCurrentDeviceMute', {"type": type, "mute": mute});
+    return _channel.invokeMethod('setCurrentDeviceMute', {"type": type, "mute": mute});
   }
 
   /// 查询当前设备是否静音
@@ -324,8 +315,7 @@ class TXDeviceManager {
   ///
   /// 0：操作成功 负数：失败
   Future<int?> startSpeakerDeviceTest(String filePath) {
-    return _channel
-        .invokeMethod('startSpeakerDeviceTest', {"filePath": filePath});
+    return _channel.invokeMethod('startSpeakerDeviceTest', {"filePath": filePath});
   }
 
   /// 停止扬声器测试
@@ -351,8 +341,7 @@ class TXDeviceManager {
   ///
   /// 0:成功
   Future<int?> setApplicationPlayVolume(int volume) {
-    return _channel
-        .invokeMethod('setApplicationPlayVolume', {"volume": volume});
+    return _channel.invokeMethod('setApplicationPlayVolume', {"volume": volume});
   }
 
   /// 获取 Windows 系统音量合成器中当前进程的音量

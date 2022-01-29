@@ -330,6 +330,12 @@ class CloudManager {
 			if dict["videoFps"] != nil {
 				data.videoFps = dict["videoFps"] as! Int32;
 			}
+            if dict["minVideoBitrate"] != nil {
+                data.minVideoBitrate = dict["minVideoBitrate"] as! Int32;
+            }
+            if dict["enableAdjustRes"] != nil {
+                data.enableAdjustRes = dict["enableAdjustRes"] as! Bool;
+            }
 			txCloudManager.setVideoEncoderParam(data);
 			result(nil);
 		}
@@ -539,6 +545,12 @@ class CloudManager {
 			if !(dict["videoFps"] is NSNull)  &&  dict["videoFps"] != nil  {
 				data.videoFps = dict["videoFps"] as! Int32;
 			}
+            if dict["minVideoBitrate"] != nil {
+                data.minVideoBitrate = dict["minVideoBitrate"] as! Int32;
+            }
+            if dict["enableAdjustRes"] != nil {
+                data.enableAdjustRes = dict["enableAdjustRes"] as! Bool;
+            }
 			
 			let ret = txCloudManager.enableEncSmallVideoStream(enable, withQuality: data);
 			result(ret);
@@ -714,12 +726,17 @@ class CloudManager {
 			if dict["videoBitrate"] != nil {
 				data.videoBitrate = dict["videoBitrate"] as! Int32;
 			}
+            if dict["minVideoBitrate"] != nil {
+                data.minVideoBitrate = dict["minVideoBitrate"] as! Int32;
+            }
 			if dict["enableAdjustRes"] != nil {
 				data.enableAdjustRes = dict["enableAdjustRes"] as! Bool;
 			}
+			if dict["videoResolutionMode"] != nil {
+				data.resMode = TRTCVideoResolutionMode(rawValue: dict["videoResolutionMode"] as! Int)!;
+			}
 			if #available(iOS 13.0,*){
                 txCloudManager.startScreenCapture(inApp: TRTCVideoStreamType(rawValue: streamType)!, encParam: data);
-//				txCloudManager.startScreenCapture(inApp:data);
 			}
 		}else{
 			if #available(iOS 13.0,*){
@@ -747,12 +764,17 @@ class CloudManager {
 			if dict["videoBitrate"] != nil {
 				data.videoBitrate = dict["videoBitrate"] as! Int32;
 			}
+            if dict["minVideoBitrate"] != nil {
+                data.minVideoBitrate = dict["minVideoBitrate"] as! Int32;
+            }
 			if dict["enableAdjustRes"] != nil {
 				data.enableAdjustRes = dict["enableAdjustRes"] as! Bool;
 			}
+			if dict["videoResolutionMode"] != nil {
+				data.resMode = TRTCVideoResolutionMode(rawValue: dict["videoResolutionMode"] as! Int)!;
+			}
 			if #available(iOS 11.0,*){
                 txCloudManager.startScreenCapture(byReplaykit: TRTCVideoStreamType(rawValue: streamType)!, encParam: data, appGroup: appGroup);
-//				txCloudManager.startScreenCapture(byReplaykit:data, appGroup:appGroup);
 			}
 		}else{
 			if #available(iOS 11.0,*){

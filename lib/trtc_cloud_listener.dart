@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -424,7 +425,7 @@ enum TRTCCloudListener {
 /// @nodoc
 /// 监听器对象
 class TRTCCloudListenerObj {
-  Set<ListenerValue> listeners = Set();
+  final listeners = <ListenerValue>{};
 
   TRTCCloudListenerObj(MethodChannel channel) {
     channel.setMethodCallHandler((methodCall) async {
@@ -442,8 +443,7 @@ class TRTCCloudListenerObj {
           TRTCCloudListener? type;
 
           for (var item in TRTCCloudListener.values) {
-            if (item.toString().replaceFirst("TRTCCloudListener.", "") ==
-                typeStr) {
+            if (item.toString().replaceFirst("TRTCCloudListener.", "") == typeStr) {
               type = item;
               break;
             }
@@ -460,6 +460,7 @@ class TRTCCloudListenerObj {
       }
     });
   }
+
   void doCallBack(type, params) {
     for (var item in listeners) {
       item(type, params);

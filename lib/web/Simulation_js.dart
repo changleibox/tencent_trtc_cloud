@@ -3,6 +3,7 @@ external Function allowInterop<Function>(Function f);
 /// @nodoc
 class JS {
   final String? name;
+
   const JS([this.name]);
 }
 

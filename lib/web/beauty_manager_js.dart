@@ -9,10 +9,15 @@ import 'Simulation_js.dart' if (dart.library.html) 'package:js/js.dart';
 @JS('BeautyManagerWrapper')
 class BeautyManagerWrapper {
   external BeautyManagerWrapper();
+
   external constructor();
+
   external void setBeautyStyle(_args);
+
   external void setBeautyLevel(_args);
+
   external void setWhitenessLevel(_args);
+
   external void setRuddyLevel(_args);
 
   external void setFilter(_args);
@@ -56,6 +61,8 @@ class BeautyManagerWrapper {
   external void setLipsThicknessLevel(_args);
 
   external void setFaceBeautyLevel(_args);
+
   external void setMotionTmpl(_args);
+
   external void setMotionMute(_args);
 }

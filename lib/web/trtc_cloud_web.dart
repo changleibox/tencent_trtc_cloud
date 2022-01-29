@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
 import 'dart:js_util';
+import 'dart:ui' as ui;
+
 import 'package:flutter/foundation.dart';
-import 'Simulation_js.dart' if (dart.library.html) 'package:js/js.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+
 import './trtc_cloud_js.dart';
-import 'dart:ui' as ui;
+import 'Simulation_js.dart' if (dart.library.html) 'package:js/js.dart';
 import 'beauty_manager_js.dart';
 import 'trtc_cloud_listener_web.dart';
 
@@ -18,6 +20,7 @@ class TencentTRTCCloudWeb {
   static late MethodChannel _channel;
   static TrtcWrapper? _trtcCloudWrapper;
   static late BeautyManagerWrapper _beautyManagerWrapper;
+
   static void registerWith(Registrar registrar) {
     _channel = MethodChannel(
       'trtcCloudChannel',
@@ -29,28 +32,23 @@ class TencentTRTCCloudWeb {
     _channel.setMethodCallHandler(pluginInstance.handleMethodCall);
 
     // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(trtcCloudChannelView,
-        (int viewId) {
-      var divId = 'HTMLID_$trtcCloudChannelView' + viewId.toString();
-      var element = DivElement()..setAttribute("id", divId);
-      MethodChannel(trtcCloudChannelView + '_$viewId',
-              const StandardMethodCodec(), registrar)
-          .setMethodCallHandler((call) =>
-              pluginInstance.handleViewMethodCall(call, element, divId));
+    ui.platformViewRegistry.registerViewFactory(trtcCloudChannelView, (int viewId) {
+      final divId = 'HTMLID_$trtcCloudChannelView' + viewId.toString();
+      final element = DivElement()..setAttribute("id", divId);
+      final channel = MethodChannel(trtcCloudChannelView + '_$viewId', const StandardMethodCodec(), registrar);
+      channel.setMethodCallHandler((call) => pluginInstance.handleViewMethodCall(call, element, divId));
       return element;
     });
   }
 
-  Future<dynamic> handleViewMethodCall(
-      MethodCall call, Element element, String divId) async {
+  Future<dynamic> handleViewMethodCall(MethodCall call, Element element, String divId) async {
     var args = '';
     if (call.arguments != null) {
       args = jsonEncode(call.arguments);
       // 不能用map，在release模式下有问题
       //Map<String, dynamic>.from(call.arguments);
     }
-    print(
-        "============>>> method: ${call.method} , arguments :  ${call.arguments}");
+    print("============>>> method: ${call.method} , arguments :  ${call.arguments}");
     switch (call.method) {
       case 'startLocalPreview':
         _trtcCloudWrapper!.startLocalPreview(element, divId, args);
@@ -67,8 +65,7 @@ class TencentTRTCCloudWeb {
       default:
         throw PlatformException(
           code: 'Unimplemented',
-          details:
-              'trtcCloudChannelView for web doesn\'t implement \'${call.method}\'',
+          details: 'trtcCloudChannelView for web doesn\'t implement \'${call.method}\'',
         );
     }
   }
@@ -90,8 +87,7 @@ class TencentTRTCCloudWeb {
   }
 
   Future<dynamic> handleMethodCall(MethodCall call) async {
-    print(
-        "============>>>  method: ${call.method} , arguments :  ${call.arguments}");
+    print("============>>>  method: ${call.method} , arguments :  ${call.arguments}");
 
     if (_trtcCloudWrapper == null && call.method != 'sharedInstance') {
       print('_trtcCloudWrapper is null');
@@ -217,8 +213,7 @@ class TencentTRTCCloudWeb {
         _trtcCloudWrapper!.muteLocalVideo(args);
         return Future.value(true);
       case "enableAudioVolumeEvaluation":
-        return Future.value(
-            _trtcCloudWrapper!.enableAudioVolumeEvaluation(args));
+        return Future.value(_trtcCloudWrapper!.enableAudioVolumeEvaluation(args));
       case "startAudioRecording":
         return Future.value(true);
       case "stopAudioRecording":
